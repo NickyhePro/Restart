@@ -15,7 +15,7 @@ struct OnboardingView: View {
     
     @State private var buttonWidth: Double = UIScreen.main.bounds.width - 80
     @State private var buttonOffset: CGFloat = 0
-    
+    @State private var isAnimnating: Bool = false
     
     // MARK: - BODY
     
@@ -45,6 +45,9 @@ struct OnboardingView: View {
                     
                     
                 }
+                .opacity(isAnimnating ? 1 : 0)
+                .offset(y: isAnimnating ? 0 : -40)
+                .animation(.easeOut(duration: 1), value: isAnimnating)
                 
                 // MARK: - CENTER
                 
@@ -54,6 +57,8 @@ struct OnboardingView: View {
                     Image("character-1")
                         .resizable()
                         .scaledToFit()
+                        .opacity(isAnimnating ? 1 : 0)
+                        .animation(.easeOut(duration: 0.5), value: isAnimnating)
 
                 }
                 
@@ -110,7 +115,10 @@ struct OnboardingView: View {
                                     }
                                 }
                                 .onEnded { _ in
-                                    buttonOffset = 0
+                                    withAnimation(Animation.easeOut(duration: 0.6)){
+                                        buttonOffset = 0
+                                    }
+                                    
                                 }
                         )
                         
@@ -119,9 +127,14 @@ struct OnboardingView: View {
                 }
                 .frame(width:buttonWidth, height: 80, alignment: .center)
                 .padding()
-            
+                .opacity(isAnimnating ? 1 : 0)
+                .offset(y: isAnimnating ? 0 : 40)
+                .animation(.easeOut(duration: 1), value: isAnimnating)
             }
         }
+        .onAppear(perform: {
+            isAnimnating = true
+        })
     }
 }
 
