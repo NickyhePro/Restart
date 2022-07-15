@@ -118,12 +118,11 @@ struct OnboardingView: View {
                                     withAnimation(Animation.easeOut(duration: 0.6)){
                                         buttonOffset = 0
                                     }
-                                    
                                 }
-                        )
+                        ) //: Gesture
                         
                         Spacer()
-                    }
+                    } //: HStack
                 }
                 .frame(width:buttonWidth, height: 80, alignment: .center)
                 .padding()
